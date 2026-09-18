@@ -38,6 +38,11 @@ async function register(req, res, next) {
 async function login(req, res, next) {
   try {
     let { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+
     let user;
 
     const { Op } = require('sequelize');
@@ -54,20 +59,12 @@ async function login(req, res, next) {
       user = await User.findOne({ where: { email } });
     }
 
-    // Automatically create user if they don't exist for easy testing
     if (!user) {
-      const passwordHash = await bcrypt.hash(password || 'dummy', 10);
-      user = await User.create({
-        name: email.split('@')[0],
-        email,
-        passwordHash,
-        role: 'patient'
-      });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Bypass password check
-    // const ok = await bcrypt.compare(password, user.passwordHash);
-    // if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+    const ok = await bcrypt.compare(password, user.passwordHash);
+    if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
 
     const accessToken = signAccessToken(user);
     const refreshToken = signRefreshToken(user);
