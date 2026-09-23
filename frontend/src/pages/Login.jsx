@@ -28,35 +28,58 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <Card className="p-8">
-        <h1 className="font-display text-2xl font-bold text-ink-900">{t('login_title')}</h1>
-        <p className="text-sm text-ink-400 mt-1 mb-6">{t('login_subtitle')}</p>
+    <div className="min-h-[calc(100vh-56px)] bg-white dark:bg-ink-900 flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-sm">
+        <Card className="p-7">
+          <h1 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50">{t('login_title')}</h1>
+          <p className="text-sm text-ink-500 dark:text-ink-400 mt-1 mb-6">{t('login_subtitle')}</p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label>{t('email')}</Label>
-            <Input type="text" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="ID or Email" />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label>{t('email')}</Label>
+              <Input
+                id="login-email"
+                type="text"
+                required
+                value={form.email}
+                onChange={e => setForm({ ...form, email: e.target.value })}
+                placeholder="ID or Email"
+              />
+            </div>
+            <div>
+              <Label>{t('password')}</Label>
+              <Input
+                id="login-password"
+                type="password"
+                required
+                value={form.password}
+                onChange={e => setForm({ ...form, password: e.target.value })}
+                placeholder="••••••••"
+              />
+            </div>
+            {error && (
+              <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-900 rounded-md px-3 py-2">
+                {error}
+              </p>
+            )}
+            <Button type="submit" id="login-submit" disabled={loading} className="w-full">
+              {loading ? 'Signing in…' : t('login_button')}
+            </Button>
+          </form>
+
+          <p className="text-sm text-ink-500 dark:text-ink-400 mt-5 text-center">
+            {t('no_account')}{' '}
+            <Link to="/register" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">{t('nav_register')}</Link>
+          </p>
+
+          <div className="mt-5 pt-5 border-t border-ink-100 dark:border-ink-700 text-xs text-ink-400 dark:text-ink-500 space-y-0.5">
+            <p className="font-semibold text-ink-500 dark:text-ink-400 mb-1">Demo accounts (password: Password123!)</p>
+            <p>Patient: patient@smartmed.app</p>
+            <p>Doctor: anjali.sharma@smartmed.app</p>
+            <p>Admin: admin@smartmed.app</p>
           </div>
-          <div>
-            <Label>{t('password')}</Label>
-            <Input type="password" required value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="••••••••" />
-          </div>
-          {error && <p className="text-sm text-red-600">{error}</p>}
-          <Button type="submit" disabled={loading} className="w-full">{loading ? '…' : t('login_button')}</Button>
-        </form>
-
-        <p className="text-sm text-ink-400 mt-6 text-center">
-          {t('no_account')} <Link to="/register" className="text-teal-700 font-semibold">{t('nav_register')}</Link>
-        </p>
-
-        <div className="mt-6 pt-6 border-t border-ink-100 text-xs text-ink-400">
-          <p className="font-semibold mb-1">Demo accounts (password: Password123!)</p>
-          <p>Patient: patient@smartmed.app</p>
-          <p>Doctor: anjali.sharma@smartmed.app</p>
-          <p>Admin: admin@smartmed.app</p>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }

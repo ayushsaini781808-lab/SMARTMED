@@ -12,13 +12,30 @@ async function checkSymptoms(req, res, next) {
       return res.status(400).json({ error: 'Provide symptoms text or bodyParts' });
     }
     const suggestion = suggestSpecialist(symptoms || '', bodyParts || []);
-    const matchingDoctors = await Doctor.findAll({
-      where: { specialization: suggestion.specialist, onLeave: false },
-      include: [{ model: User, as: 'user', attributes: ['id', 'name'] }]
+
+    // Use case-insensitive partial match so minor name variations still work
+    let matchingDoctors = await Doctor.findAll({
+      where: {
+        specialization: { [Op.like]: `%${suggestion.specialist}%` },
+        onLeave: false
+      },
+      include: [{ model: User, as: 'user', attributes: ['id', 'name'] }],
+      order: [[{ model: User, as: 'user' }, 'name', 'ASC']]
     });
+
+    // Fallback: if still no doctors found, return all available doctors
+    if (matchingDoctors.length === 0) {
+      matchingDoctors = await Doctor.findAll({
+        where: { onLeave: false },
+        include: [{ model: User, as: 'user', attributes: ['id', 'name'] }],
+        order: [[{ model: User, as: 'user' }, 'name', 'ASC']]
+      });
+    }
+
     res.json({ ...suggestion, matchingDoctors });
   } catch (err) { next(err); }
 }
+
 
 // FR-B3 + FR-C1: Book a slot with row-level locking so two patients can never
 // grab the same slot capacity, and generate a daily-incrementing token number

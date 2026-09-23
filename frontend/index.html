@@ -3,11 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SmartMed — Hospital Appointments & Live Queue</title>
+    <meta name="description" content="SmartMed — AI-powered hospital appointment booking, live OPD queue tracking, and digital prescription management." />
+    <title>SmartMed — Hospital Appointments &amp; Live Queue</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('smartmed_theme');
+          if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="font-body bg-ink-50 text-ink-900">
+  <body class="font-body bg-white dark:bg-ink-900 text-ink-900 dark:text-ink-50">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

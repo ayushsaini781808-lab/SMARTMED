@@ -2,14 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
-body { -webkit-font-smoothing: antialiased; }
+/* ─── Base ─────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Light mode defaults ───────────────────────── */
+:root {
+  color-scheme: light;
+}
+
+/* ─── Dark mode CSS overrides (class-based) ─────── */
+.dark {
+  color-scheme: dark;
+}
+
+/* ─── Focus styles — no glow ────────────────────── */
 :focus-visible {
-  outline: 2px solid #2c7f74;
+  outline: 2px solid #1f6459;
   outline-offset: 2px;
 }
 
+/* ─── Scrollbar (subtle) ────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5e5e5;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+
+/* ─── Date input fix in dark mode ──────────────── */
+.dark input[type="date"] {
+  color-scheme: dark;
+}
+
+/* ─── Reduced motion ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

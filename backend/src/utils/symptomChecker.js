@@ -4,17 +4,66 @@
 // keep the same return shape: { specialist, department, confidence, reason }.
 
 const RULES = [
-  { keywords: ['chest pain', 'palpitation', 'breathless', 'heart'], specialist: 'Cardiologist', department: 'Cardiology' },
-  { keywords: ['headache', 'migraine', 'dizziness', 'seizure', 'numbness'], specialist: 'Neurologist', department: 'Neurology' },
-  { keywords: ['fever', 'cold', 'cough', 'sore throat', 'body ache'], specialist: 'General Physician', department: 'General Medicine' },
-  { keywords: ['skin', 'rash', 'itching', 'acne'], specialist: 'Dermatologist', department: 'Dermatology' },
-  { keywords: ['joint pain', 'fracture', 'back pain', 'knee', 'sprain'], specialist: 'Orthopedic', department: 'Orthopedics' },
-  { keywords: ['stomach', 'abdominal', 'vomiting', 'diarrhea', 'nausea'], specialist: 'Gastroenterologist', department: 'Gastroenterology' },
-  { keywords: ['eye', 'vision', 'blurred'], specialist: 'Ophthalmologist', department: 'Ophthalmology' },
-  { keywords: ['ear', 'nose', 'throat', 'sinus'], specialist: 'ENT Specialist', department: 'ENT' },
-  { keywords: ['child', 'infant', 'baby'], specialist: 'Pediatrician', department: 'Pediatrics' },
-  { keywords: ['pregnan', 'menstrual', 'gynec'], specialist: 'Gynecologist', department: 'Gynecology' },
-  { keywords: ['anxiety', 'depression', 'stress', 'sleep'], specialist: 'Psychiatrist', department: 'Psychiatry' }
+  {
+    keywords: ['chest pain', 'palpitation', 'breathless', 'heart', 'cardiac', 'angina', 'arrhythmia', 'blood pressure', 'cholesterol'],
+    specialist: 'Cardiologist', department: 'Cardiology'
+  },
+  {
+    keywords: ['headache', 'migraine', 'dizziness', 'seizure', 'numbness', 'epilepsy', 'tremor', 'memory loss', 'stroke', 'vertigo', 'paralysis', 'blackout'],
+    specialist: 'Neurologist', department: 'Neurology'
+  },
+  {
+    keywords: ['fever', 'cold', 'cough', 'sore throat', 'body ache', 'fatigue', 'weakness', 'malaise', 'flu', 'viral', 'infection', 'general'],
+    specialist: 'General Physician', department: 'General Medicine'
+  },
+  {
+    keywords: ['skin', 'rash', 'itching', 'acne', 'eczema', 'psoriasis', 'hives', 'allergy', 'dermatitis', 'blisters', 'pimple', 'hair loss', 'dandruff'],
+    specialist: 'Dermatologist', department: 'Dermatology'
+  },
+  {
+    keywords: ['joint pain', 'fracture', 'back pain', 'knee', 'sprain', 'bone', 'shoulder', 'ankle', 'wrist', 'hip', 'sports injury', 'ligament', 'muscle pain', 'orthopedic'],
+    specialist: 'Orthopedist', department: 'Orthopedics'
+  },
+  {
+    keywords: ['stomach', 'abdominal', 'vomiting', 'diarrhea', 'nausea', 'constipation', 'acidity', 'heartburn', 'liver', 'indigestion', 'bloating', 'gastric', 'ibs', 'colitis'],
+    specialist: 'Gastroenterologist', department: 'Gastroenterology'
+  },
+  {
+    keywords: ['eye', 'vision', 'blurred', 'cataract', 'glaucoma', 'retina', 'spectacles', 'glasses', 'watering eyes', 'red eye', 'squint'],
+    specialist: 'Ophthalmologist', department: 'Ophthalmology'
+  },
+  {
+    keywords: ['ear', 'nose', 'throat', 'sinus', 'sinusitis', 'tonsil', 'hearing loss', 'ear pain', 'nasal', 'sneezing', 'rhinitis', 'hoarse', 'voice', 'ent'],
+    specialist: 'ENT Specialist', department: 'ENT'
+  },
+  {
+    keywords: ['child', 'infant', 'baby', 'toddler', 'kids', 'newborn', 'vaccination', 'growth', 'pediatric'],
+    specialist: 'Pediatrician', department: 'Pediatrics'
+  },
+  {
+    keywords: ['pregnant', 'pregnancy', 'menstrual', 'period', 'gynec', 'women', 'ovarian', 'uterus', 'discharge', 'pcos', 'fertility', 'menopause', 'vaginal'],
+    specialist: 'Gynaecologist', department: 'Gynaecology'
+  },
+  {
+    keywords: ['anxiety', 'depression', 'stress', 'sleep', 'insomnia', 'panic', 'mental', 'mood', 'phobia', 'ocd', 'ptsd', 'suicidal', 'bipolar', 'schizophrenia', 'psychiatric'],
+    specialist: 'Psychiatrist', department: 'Psychiatry'
+  },
+  {
+    keywords: ['breathing', 'shortness of breath', 'asthma', 'copd', 'lung', 'respiratory', 'wheezing', 'chest tightness', 'oxygen', 'bronchitis', 'pneumonia', 'tb', 'tuberculosis'],
+    specialist: 'Pulmonologist', department: 'Pulmonology'
+  },
+  {
+    keywords: ['diabetes', 'thyroid', 'hormone', 'obesity', 'weight gain', 'sugar', 'insulin', 'adrenal', 'metabolic', 'endocrine', 'pituitary', 'hypothyroid', 'hyperthyroid'],
+    specialist: 'Endocrinologist', department: 'Endocrinology'
+  },
+  {
+    keywords: ['urine', 'urinary', 'kidney stone', 'prostate', 'bladder', 'kidney', 'renal', 'uti', 'urination', 'incontinence', 'urology'],
+    specialist: 'Urologist', department: 'Urology'
+  },
+  {
+    keywords: ['arthritis', 'autoimmune', 'lupus', 'rheumatoid', 'swollen joints', 'stiffness', 'inflammation', 'gout', 'fibromyalgia', 'rheumatism'],
+    specialist: 'Rheumatologist', department: 'Rheumatology'
+  }
 ];
 
 function suggestSpecialist(symptomsText, bodyParts = []) {
